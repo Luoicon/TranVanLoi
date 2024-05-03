@@ -1,0 +1,58 @@
+from ._anvil_designer import SapxepTemplate
+from anvil import *
+
+class Sapxep(SapxepTemplate):
+  def __init__(self, **properties):
+    # Set Form properties and Data Bindings.
+    self.init_components(**properties)
+
+    # Any code you write here will run when the form opens
+  def is_valid_input(self, input_str):
+    valid_chars = set('1234567890 ')
+    return all(char in valid_chars for char in input_str)
+
+  def bubble_sort(self, arr):
+      n = len(arr)
+      for i in range(n - 1): 
+        for j in range(0, n - i - 1):
+          if arr[j] > arr[j+1]:
+            arr[j],arr[j+1] = arr[j+1], arr[j]
+
+  def bubble_sort_desc(self, arr):
+      n = len(arr)
+      for i in range(n - 1):
+        for j in range(0, n- i -1):                  
+          if arr[j] < arr[j+1]:
+            arr[j],arr[j+1] = arr[j+1], arr[j]
+
+  def btn_sapxep_click(self, **event_args):
+    """This method is called when the btn is clicked"""
+    input_str = self.txt_nhap.text
+    if self.is_valid_input(input_str):
+      numbers = [int(num) for num in input_str.split() if num.isdigit()]
+      self.bubble_sort(numbers)
+      sorted_str = ' '.join(map(str, numbers))
+      self.txt_xuat.text = "danh sach sau khi sap xep: "+ sorted_str
+    else:
+      alert("vui long nhap dung dinh dang so tu 1 den 9 cach nhau bang khoang trang.")
+
+  def btn_sapxepgiam_click(self, **event_args):
+    """This method is called when the btn is clicked"""
+    print("Btn giam dan duoc nhan!")
+    input_str = self.txt_nhap.text
+    if self.is_valid_input(input_str):
+      numbers = [int(num) for num in input_str.split() if num.isdigit()]
+      self.bubble_sort_desc(numbers)
+      sorted_str = ' '.join(map(str, numbers))
+      self.txt_xuat.text = "danh sach sau khi sap xep giam dan: "+sorted_str
+    else:
+      alert("vui long nhap dung dinh dang so tu 1 den 9 cach nhau bang khoang trang.")
+
+  def txt_nhap_show(self, **event_args):
+    """This method is called when the TextBox is shown on the screen"""
+    pass
+
+  def content_panel_show(self, **event_args):
+    """This method is called when the column panel is shown on the screen"""
+    pass
+          
